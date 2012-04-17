@@ -29,7 +29,46 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
         targetNamespace="http://www.w3.org/2000/09/xmldsig#"
-        version="0.1" elementFormDefault="qualified"> 
+        version="0.1" elementFormDefault="qualified"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:version="2.1"
+	jaxb:extensionBindingPrefixes="xjc"> 
+        
+<!--
+
+JAXB INSTRUCTIONS
+	  
+  To generate java classes, you need xjc, from the JAXB 2.1 RI.
+  
+  (I used JAXB 2.1.x included in JDK 1.6.0_27)
+		
+  To generate the classes (from the same directory)	
+			
+ 	 xjc  xmldsig-core-schema.xsd -d ../src/main/java -no-header -target 2.0 -extension
+
+-->
+
+	<annotation>
+		<appinfo>
+			<appinfo>
+				<jaxb:globalBindings>
+				</jaxb:globalBindings>
+			</appinfo>
+			<jaxb:schemaBindings>
+				<!-- can be overridden on the command line with -p -->
+				<!-- A schema scope covers all the schema elements in the
+				*target namespace* of a schema.  [JAXB 2.1 Spec 7.4.1]
+				
+				Since all the relevant bits of wordml are in a
+				single namespace, this means we can't put for
+				example the table elements in a table package. -->
+				
+				<jaxb:package name="org.plutext.jaxb.xmldsig"/>
+			</jaxb:schemaBindings>
+		</appinfo>
+    
+  </annotation>
+
 
 <!-- Basic Types Defined for Signatures -->
 
